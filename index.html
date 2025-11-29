@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offline Speed Test</title>
+    <style>
+        body {
+            background:#111;
+            color:white;
+            font-family:Arial;
+            padding:20px;
+        }
+        button {
+            padding:15px 30px;
+            font-size:20px;
+            border:none;
+            border-radius:10px;
+            background:#00ff99;
+            color:#000;
+            cursor:pointer;
+        }
+        .big {
+            font-size:35px;
+            margin-top:20px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🔥 Offline Internet Speed Test (Local Server) 🔥</h2>
+
+<button onclick="startTest()">Start Test</button>
+
+<div class="big" id="result">Waiting...</div>
+
+<script>
+async function startTest() {
+    const fileUrl = "download.bin"; // your offline bin file
+
+    const start = performance.now();
+
+    const response = await fetch(fileUrl);
+    const blob = await response.blob();
+
+    const size = blob.size; // bytes
+    const time = (performance.now() - start) / 1000; // sec
+
+    const mbps = ((size * 8) / (1024*1024) / time).toFixed(2);
+
+    document.getElementById("result").innerHTML = 
+        `${mbps} Mbps`;
+}
+</script>
+
+</body>
+</html>
